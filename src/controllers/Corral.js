@@ -102,7 +102,8 @@ function findInArray(array, value) {
 }
 
 corralController.getAllanimals = async (req, res) => {
-    const animales = await Animal.find();
+    
+    const animales = await Animal.find().sort({idCorral: -1});
     //res.json(animales);
     //luego de obtenerlos agruparlos agregarle el nombre del tipo
     const tipos = await Tipo.find();
@@ -123,14 +124,15 @@ corralController.getAllanimals = async (req, res) => {
         }
     });
     //luego agrupar los animales por corral
-    const animalesPorCorral = corralesAnimal.reduce((acc, animal) => {
+    /*const animalesPorCorral = corralesAnimal.reduce((acc, animal) => {
         if(!acc[animal.corral]){
             acc[animal.corral] = [];
         }
         acc[animal.corral].push(animal);
         return acc;
-    }, {});
-    res.status(200).json(animalesPorCorral);
+    }, {});*/
+    res.status(200).json(corralesAnimal);
+    //res.status(200).json(animalesPorCorral);
     
 
 
